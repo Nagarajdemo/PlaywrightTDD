@@ -23,5 +23,4 @@
             <class name="com.qa.uiautomation.tests.LoginPageTest" />
         </classes>
     </test>
-
 </suite>

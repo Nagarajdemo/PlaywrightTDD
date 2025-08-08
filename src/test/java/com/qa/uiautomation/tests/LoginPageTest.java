@@ -14,6 +14,7 @@ public class LoginPageTest extends BaseTest {
     public void checkForLoginTitle(){
         Assert.assertEquals("Home",loginPage.getLoginPageTitle());
     }
+
     @DataProvider
     public Object[][] getUNPWD() {
         return new Object[][] {

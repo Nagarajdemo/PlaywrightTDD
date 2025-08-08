@@ -12,7 +12,6 @@ public class PlaywrightFactory {
     BrowserContext context;
     Page page;
     Properties prop;
-
     public Page init(Properties prop) {
         playwright = Playwright.create();
         switch (prop.getProperty("browser").trim().toLowerCase()) {
