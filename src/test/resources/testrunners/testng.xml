@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Book Cart Application - Cross Browser Test" parallel="tests" thread-count="1" verbose="4">
+    <listeners>
+        <listener class-name="org.testng.reporters.EmailableReporter" />
+        <listener class-name="org.testng.reporters.XMLReporter" />
+        <listener class-name="org.testng.reporters.SuiteHTMLReporter" />
+    </listeners>
+
+    <!-- Chromium -->
+    <test name="LoginTest-Chromium">
+        <parameter name="browser" value="chromium" />
+        <classes>
+            <class name="com.qa.uiautomation.tests.LoginPageTest" />
+        </classes>
+    </test>
+
+    <!-- Firefox -->
+    <test name="LoginTest-Firefox">
+        <parameter name="browser" value="firefox" />
+        <classes>
+            <class name="com.qa.uiautomation.tests.LoginPageTest" />
+        </classes>
+    </test>
+
+
+</suite>
