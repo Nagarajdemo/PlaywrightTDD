@@ -18,6 +18,7 @@ public class LoginPage {
     public LoginPage(Page page) {
         this.page = page;
     }
+
     public String getLoginPageTitle() {
         return page.title();
     }

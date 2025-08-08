@@ -1,7 +1,6 @@
 package com.qa.uiautomation.factory;
 
 import com.microsoft.playwright.*;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;

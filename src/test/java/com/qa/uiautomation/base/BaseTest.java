@@ -29,6 +29,7 @@ public class BaseTest {
         loginPage = new LoginPage(page);
     }
 
+
     @AfterTest
     public void tearDown() {
         page.context().browser().close();
