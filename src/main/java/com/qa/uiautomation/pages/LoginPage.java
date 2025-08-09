@@ -14,7 +14,6 @@ public class LoginPage {
     private String logOut="//span[text()='Logout']";
     private String clickBookCart="//span[contains(text(),'Book Cart')]";
     private Page page;
-
     public LoginPage(Page page) {
         this.page = page;
     }
@@ -28,7 +27,7 @@ public class LoginPage {
         page.click(loginButton);
         page.locator(bookCartPage).waitFor(new Locator.WaitForOptions().setTimeout(5000));
         String loginUser=page.locator(loginText).textContent();
-        clickLogout();
+//        clickLogout();
         return loginUser;
     }
 

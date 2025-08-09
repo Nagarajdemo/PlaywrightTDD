@@ -29,6 +29,7 @@ public class LoginPageTest extends BaseTest {
         String loginValidation=loginPage.loginToBookcart(username,password);
         Assert.assertEquals(loginValidation.trim(),loginValidation.trim());
         System.out.println(loginValidation);
+        loginPage.clickLogout();
     }
 
 

@@ -7,34 +7,69 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class PlaywrightFactory {
-    Playwright playwright;
-    Browser browser;
-    BrowserContext context;
-    Page page;
+//    Playwright playwright;
+//    Browser browser;
+//    BrowserContext context;
+//    Page page;
     Properties prop;
+
+    private static ThreadLocal<Browser> browserThreadLocal=new ThreadLocal<>();
+    private static ThreadLocal<BrowserContext> browserContextThreadLocal=new ThreadLocal<>();
+    private static ThreadLocal<Page> pageThreadLocal=new ThreadLocal<>();
+    private static ThreadLocal<Playwright> playwrightThreadLocal=new ThreadLocal<>();
+
+    public static Playwright getPlayWright(){
+        return playwrightThreadLocal.get();
+    }
+    public static Browser getBrowser(){
+        return browserThreadLocal.get();
+    }
+
+    public static BrowserContext getBrowserContext(){
+        return browserContextThreadLocal.get() ;
+    }
+
+    public static Page getPage(){
+        return pageThreadLocal.get() ;
+    }
+
+
+
     public Page init(Properties prop) {
-        playwright = Playwright.create();
+//        playwright = Playwright.create();
+        playwrightThreadLocal.set(Playwright.create());
         switch (prop.getProperty("browser").trim().toLowerCase()) {
             case "chromium":
-                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+//                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                browserThreadLocal.set(playwrightThreadLocal.get().chromium().launch(new BrowserType.LaunchOptions().setHeadless(false)));
+
                 break;
             case "safari":
-                browser = playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(false));
+//                browser = playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(false));
+
+                browserThreadLocal.set(playwrightThreadLocal.get().webkit().launch(new BrowserType.LaunchOptions().setHeadless(false)));
                 break;
             case "firefox":
-                browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(false));
+//                browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                browserThreadLocal.set(playwrightThreadLocal.get().firefox().launch(new BrowserType.LaunchOptions().setHeadless(false)));
+
                 break;
             case "chrome":
-                browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(false));
+//                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(false));
+                browserThreadLocal.set(playwrightThreadLocal.get().chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(false)));
+
                 break;
             default:
                 System.out.println("please pass the right browser name......");
                 break;
         }
-        context = browser.newContext();
-        page = context.newPage();
-        page.navigate("https://bookcart.azurewebsites.net/");
-        return page;
+        browserContextThreadLocal.set(getBrowser().newContext());
+        pageThreadLocal.set(getBrowserContext().newPage());
+        getPage().navigate(prop.getProperty("url").trim());
+//        context = browserContextThreadLocal.get().newContext();
+//        page = context.newPage();
+//        page.navigate("https://bookcart.azurewebsites.net/");
+        return getPage();
     }
 
     public Properties init_prop() {
